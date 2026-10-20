@@ -1,4 +1,30 @@
+import { useState, type FormEvent } from 'react'
+import { createWhatsAppMessageUrl } from '../lib/whatsapp'
+
 function Contact() {
+  const [projectType, setProjectType] = useState<string | null>(null)
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const formData = new FormData(event.currentTarget)
+    const name = String(formData.get('name') ?? '').trim()
+    const email = String(formData.get('email') ?? '').trim()
+    const message = String(formData.get('message') ?? '').trim()
+    const messageLines = [
+      'Hola Camila, te contacto desde tu portfolio.',
+      '',
+      `Nombre: ${name}`,
+      `Email: ${email}`,
+      ...(projectType ? [`Tipo de proyecto: ${projectType}`] : []),
+      '',
+      'Mensaje:',
+      message,
+    ]
+
+    window.location.assign(createWhatsAppMessageUrl(messageLines.join('\n')))
+  }
+
   return (
     <section
       id="contacto"
@@ -164,7 +190,11 @@ function Contact() {
           </div>
 
           {/* Formulario */}
-          <form className="rounded-2xl border border-sage/20 p-8 md:p-10 min-h-[620px]">
+          <form
+            aria-label="Formulario de contacto por WhatsApp"
+            onSubmit={handleSubmit}
+            className="rounded-2xl border border-sage/20 p-8 md:p-10 min-h-[620px]"
+          >
 
             <div className="space-y-8">
 
@@ -174,14 +204,17 @@ function Contact() {
                   htmlFor="name"
                   className="block text-sm text-muted mb-3"
                 >
-                  Nombre
+                  Nombre <span aria-hidden="true">*</span>
                 </label>
 
                 <input
                   id="name"
+                  name="name"
                   type="text"
                   placeholder="¿Cómo te llamás?"
-                  className="w-full bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted/60 outline-none focus:border-sage transition-colors"
+                  autoComplete="name"
+                  required
+                  className="w-full bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted/60 outline-none transition-colors focus:border-sage focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
                 />
               </div>
 
@@ -191,60 +224,42 @@ function Contact() {
                   htmlFor="email"
                   className="block text-sm text-muted mb-3"
                 >
-                  Email
+                  Email <span aria-hidden="true">*</span>
                 </label>
 
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="tu@email.com"
-                  className="w-full bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted/60 outline-none focus:border-sage transition-colors"
+                  autoComplete="email"
+                  required
+                  className="w-full bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted/60 outline-none transition-colors focus:border-sage focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
                 />
               </div>
 
               {/* Tipo de proyecto */}
               <div>
-                <p className="text-sm text-muted mb-4">
-                  ¿Qué tenés en mente?
+                <p id="project-type-label" className="text-sm text-muted mb-4">
+                  ¿Qué tenés en mente? <span className="text-muted/80">(opcional)</span>
                 </p>
 
-                <div className="flex flex-wrap gap-2">
-
-                  <button
-                    type="button"
-                    className="px-4 py-2 rounded-full border border-sage/30 text-sm text-muted hover:border-sage hover:text-text transition-colors"
-                  >
-                    Desarrollo web
-                  </button>
-
-                  <button
-                    type="button"
-                    className="px-4 py-2 rounded-full border border-sage/30 text-sm text-muted hover:border-sage hover:text-text transition-colors"
-                  >
-                    Automatización
-                  </button>
-
-                  <button
-                    type="button"
-                    className="px-4 py-2 rounded-full border border-sage/30 text-sm text-muted hover:border-sage hover:text-text transition-colors"
-                  >
-                    IA / Integraciones
-                  </button>
-
-                  <button
-                    type="button"
-                    className="px-4 py-2 rounded-full border border-sage/30 text-sm text-muted hover:border-sage hover:text-text transition-colors"
-                  >
-                    UI / UX
-                  </button>
-
-                  <button
-                    type="button"
-                    className="px-4 py-2 rounded-full border border-sage/30 text-sm text-muted hover:border-sage hover:text-text transition-colors"
-                  >
-                    Otro
-                  </button>
-
+                <div role="group" aria-labelledby="project-type-label" className="flex flex-wrap gap-2">
+                  {['Desarrollo web', 'Automatización', 'IA / Integraciones', 'UI / UX', 'Otro'].map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      aria-pressed={projectType === type}
+                      onClick={() => setProjectType((current) => current === type ? null : type)}
+                      className={`min-h-11 rounded-full border px-4 py-2 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage ${
+                        projectType === type
+                          ? 'border-sage bg-sage/20 text-text'
+                          : 'border-sage/30 text-muted hover:border-sage hover:text-text'
+                      }`}
+                    >
+                      {type}
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -254,28 +269,35 @@ function Contact() {
                   htmlFor="message"
                   className="block text-sm text-muted mb-3"
                 >
-                  Mensaje
+                  Mensaje <span aria-hidden="true">*</span>
                 </label>
 
                 <textarea
                   id="message"
+                  name="message"
                   rows={5}
                   placeholder="Contame brevemente sobre tu proyecto..."
-                  className="w-full resize-none bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted/60 outline-none focus:border-sage transition-colors"
+                  required
+                  className="w-full resize-none bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted/60 outline-none transition-colors focus:border-sage focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
                 />
               </div>
 
               {/* Botón */}
-             <button
-  type="submit"
-  className="group w-full flex items-center justify-between bg-cream text-bg px-6 py-4 rounded-lg font-semibold transition-all duration-300 hover:bg-sage hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(138,154,126,0.18)]"
->
-  <span>Enviar mensaje</span>
+              <div>
+                <p className="mb-4 text-sm leading-relaxed text-muted">
+                  Al continuar, se abrirá WhatsApp con el mensaje preparado para que lo revises y lo envíes desde allí.
+                </p>
+                <button
+                  type="submit"
+                  className="group flex w-full items-center justify-between rounded-lg bg-cream px-6 py-4 font-semibold text-bg transition-all duration-300 hover:scale-[1.02] hover:bg-sage hover:shadow-[0_0_30px_rgba(138,154,126,0.18)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
+                >
+                  <span>Preparar mensaje en WhatsApp</span>
 
-  <span className="text-xl transition-transform duration-300 group-hover:translate-x-2">
-    →
-  </span>
-</button>
+                  <span aria-hidden="true" className="text-xl transition-transform duration-300 group-hover:translate-x-2">
+                    →
+                  </span>
+                </button>
+              </div>
             </div>
           </form>
 

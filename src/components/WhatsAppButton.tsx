@@ -1,7 +1,9 @@
+import { WHATSAPP_URL } from '../lib/whatsapp'
+
 function WhatsAppButton() {
   return (
     <a
-     href="https://wa.me/5492625595884"
+      href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactarme por WhatsApp"
