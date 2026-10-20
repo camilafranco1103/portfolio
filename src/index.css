@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+  --color-bg: #0f1410;
+  --color-text: #f5f1e8;
+  --color-muted: #8a8f85;
+  --color-sage: #8a9a7e;
+  --color-cream: #ede4d3;
+}
+
+.signature-font {
+  font-family: 'Allura', cursive;
+}
+
+.hero-device-image {
+  transform: rotateY(-8deg) rotateX(2deg);
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 28px 35px rgb(0 0 0 / 35%));
+  animation: hero-device-float 7s ease-in-out infinite;
+  transition: transform 500ms ease, filter 500ms ease;
+  will-change: transform;
+}
+
+.hero-device-image:hover {
+  transform: rotateY(-2deg) rotateX(0deg) scale(1.025) translateZ(14px);
+  filter: drop-shadow(0 36px 42px rgb(0 0 0 / 42%));
+}
+
+@keyframes hero-device-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-device-image {
+    animation: none;
+    transition: none;
+  }
+}
