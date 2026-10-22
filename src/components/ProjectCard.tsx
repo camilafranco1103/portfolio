@@ -6,7 +6,7 @@ type ProjectScreenshot = {
   alt: string
 }
 
-type ProjectCardProps = {
+export type PortfolioProject = {
   category: string
   title: string
   description: string
@@ -16,43 +16,53 @@ type ProjectCardProps = {
   screenshots?: ProjectScreenshot[]
 }
 
-function ProjectCard({ category, title, description, tags, link, detailLink, screenshots }: ProjectCardProps) {
+type ProjectCardProps = PortfolioProject & {
+  featured?: boolean
+  onOpenDetails: (project: PortfolioProject, trigger: HTMLButtonElement) => void
+}
+
+function ProjectCard({ category, title, description, tags, link, detailLink, screenshots, featured = false, onOpenDetails }: ProjectCardProps) {
   const [activeScreenshot, setActiveScreenshot] = useState(0)
 
   return (
-    <div className="rounded-2xl border border-sage/20 bg-sage/[0.04] overflow-hidden flex flex-col">
+    <div
+      className={`project-card${featured ? ' project-card-featured' : ''}`}
+    >
+      <button
+        type="button"
+        className="project-card-open"
+        aria-label={`Abrir descripción completa de ${title}`}
+        aria-haspopup="dialog"
+        onClick={(event) => onOpenDetails({ category, title, description, tags, link, detailLink, screenshots }, event.currentTarget)}
+      />
       {screenshots?.length ? (
-        <div>
+        <div className="project-card-media">
           {detailLink ? (
-            <a href={detailLink} className="block aspect-video bg-sage/10 overflow-hidden" aria-label={`Ver detalles de ${title}`}>
+            <a href={detailLink} className="project-card-image-link" aria-label={`Ver detalles de ${title}`}>
               <img
                 src={screenshots[activeScreenshot].src}
                 alt={screenshots[activeScreenshot].alt}
-                className="w-full h-full object-cover object-top"
+                className="project-card-image"
               />
             </a>
           ) : (
-            <div className="aspect-video bg-sage/10 overflow-hidden">
+            <div className="project-card-image-link">
               <img
                 src={screenshots[activeScreenshot].src}
                 alt={screenshots[activeScreenshot].alt}
-                className="w-full h-full object-cover object-top"
+                className="project-card-image"
               />
             </div>
           )}
           {screenshots.length > 1 && (
-            <div className="flex gap-2 px-4 py-3 border-b border-sage/20" aria-label="Tema de la captura">
+            <div className="project-card-screenshot-controls" aria-label="Tema de la captura">
               {screenshots.map((screenshot, index) => (
                 <button
                   key={screenshot.label}
                   type="button"
                   onClick={() => setActiveScreenshot(index)}
                   aria-pressed={activeScreenshot === index}
-                  className={`text-xs px-3 py-1 rounded-full border transition-colors ${
-                    activeScreenshot === index
-                      ? 'border-sage bg-sage/20 text-text'
-                      : 'border-sage/20 text-muted hover:border-sage/50'
-                  }`}
+                  className={`project-card-screenshot-button${activeScreenshot === index ? ' is-active' : ''}`}
                 >
                   {screenshot.label}
                 </button>
@@ -61,27 +71,27 @@ function ProjectCard({ category, title, description, tags, link, detailLink, scr
           )}
         </div>
       ) : (
-        <div className="aspect-video bg-sage/10 flex items-center justify-center">
-          <span className="text-sm text-muted">Captura próximamente</span>
+        <div className="project-card-placeholder">
+          <span>Captura próximamente</span>
         </div>
       )}
 
-      <div className="p-6 flex flex-col flex-1">
-        <span className="inline-block w-fit text-xs px-3 py-1 rounded-full border border-sage/30 text-muted mb-4">
+      <div className="project-card-content">
+        <span className="project-card-category">
           {category}
         </span>
 
-        <h3 className="text-xl font-semibold text-text mb-2">
+        <h3 className="project-card-title">
           {detailLink ? <a href={detailLink} className="hover:text-cream transition-colors">{title}</a> : title}
         </h3>
 
-        <p className="text-sm text-muted mb-6 flex-1">{description}</p>
+        <p className="project-card-description">{description}</p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="project-card-tags">
           {tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2 py-1 rounded-md bg-sage/10 text-text/80"
+              className="project-card-tag"
             >
               {tag}
             </span>
@@ -93,7 +103,7 @@ function ProjectCard({ category, title, description, tags, link, detailLink, scr
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-sage hover:text-cream transition-colors"
+            className="project-card-link"
           >
             GitHub ↗
           </a>
@@ -101,7 +111,7 @@ function ProjectCard({ category, title, description, tags, link, detailLink, scr
         {detailLink && (
           <a
             href={detailLink}
-            className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-text hover:text-cream transition-colors"
+            className="project-card-link project-card-detail-link"
           >
             Ver detalles <span aria-hidden="true">→</span>
           </a>

@@ -1,8 +1,11 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { createWhatsAppMessageUrl } from '../lib/whatsapp'
 
 function Contact() {
   const [projectType, setProjectType] = useState<string | null>(null)
+  const [validationErrors, setValidationErrors] = useState({ name: '', message: '' })
+  const nameInputRef = useRef<HTMLInputElement>(null)
+  const messageInputRef = useRef<HTMLTextAreaElement>(null)
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -11,6 +14,23 @@ function Contact() {
     const name = String(formData.get('name') ?? '').trim()
     const email = String(formData.get('email') ?? '').trim()
     const message = String(formData.get('message') ?? '').trim()
+    const nextValidationErrors = {
+      name: name ? '' : 'Escribí tu nombre; no puede contener solo espacios.',
+      message: message ? '' : 'Escribí un mensaje; no puede contener solo espacios.',
+    }
+
+    setValidationErrors(nextValidationErrors)
+
+    if (nextValidationErrors.name || nextValidationErrors.message) {
+      if (nextValidationErrors.name) {
+        nameInputRef.current?.focus()
+      } else {
+        messageInputRef.current?.focus()
+      }
+
+      return
+    }
+
     const messageLines = [
       'Hola Camila, te contacto desde tu portfolio.',
       '',
@@ -28,9 +48,9 @@ function Contact() {
   return (
     <section
       id="contacto"
-      className="min-h-screen bg-bg px-6 md:px-12 py-32 flex items-center"
+      className="contact-section min-h-screen bg-bg px-6 md:px-12 py-32 flex items-center"
     >
-      <div className="w-full max-w-6xl mx-auto">
+      <div className="w-full max-w-6xl mx-auto" data-reveal-on-scroll>
 
         {/* Encabezado */}
         <div className="mb-16">
@@ -38,9 +58,9 @@ function Contact() {
             CONTACTO · 04
           </p>
 
-          <h2 className="text-5xl md:text-7xl font-bold text-text leading-tight max-w-4xl">
+          <h2 className="contact-heading portfolio-section-heading text-text max-w-4xl">
             Hagamos algo{' '}
-            <span className="bg-gradient-to-r from-sage to-cream bg-clip-text text-transparent">
+            <span className="signature-font contact-heading-accent">
               que funcione.
             </span>
           </h2>
@@ -60,7 +80,7 @@ function Contact() {
             {/* Disponibilidad */}
             <div>
               <div className="flex items-center gap-3 mb-8">
-                <span className="w-2.5 h-2.5 rounded-full bg-sage animate-pulse" />
+                <span className="w-2.5 h-2.5 rounded-full bg-sage motion-safe:animate-pulse" />
 
                 <span className="text-sm text-text">
                   Disponible para proyectos
@@ -89,7 +109,7 @@ function Contact() {
                     </h3>
                   </div>
 
-                  <span className="text-muted group-hover:text-sage group-hover:translate-x-1 transition-all">
+                  <span className="text-muted group-hover:text-sage motion-safe:group-hover:translate-x-1 transition-all">
                     ↗
                   </span>
                 </div>
@@ -112,7 +132,7 @@ function Contact() {
                     </h3>
                   </div>
 
-                  <span className="text-muted group-hover:text-sage group-hover:translate-x-1 transition-all">
+                  <span className="text-muted group-hover:text-sage motion-safe:group-hover:translate-x-1 transition-all">
                     ↗
                   </span>
                 </div>
@@ -135,7 +155,7 @@ function Contact() {
                     </h3>
                   </div>
 
-                  <span className="text-muted group-hover:text-sage group-hover:translate-x-1 transition-all">
+                  <span className="text-muted group-hover:text-sage motion-safe:group-hover:translate-x-1 transition-all">
                     ↗
                   </span>
                 </div>
@@ -208,14 +228,27 @@ function Contact() {
                 </label>
 
                 <input
+                  ref={nameInputRef}
                   id="name"
                   name="name"
                   type="text"
                   placeholder="¿Cómo te llamás?"
                   autoComplete="name"
                   required
-                  className="w-full bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted/60 outline-none transition-colors focus:border-sage focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
+                  aria-invalid={Boolean(validationErrors.name)}
+                  aria-describedby={validationErrors.name ? 'name-error' : undefined}
+                  onChange={(event) => {
+                    if (event.currentTarget.value.trim()) {
+                      setValidationErrors((errors) => ({ ...errors, name: '' }))
+                    }
+                  }}
+                  className="w-full bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted outline-none transition-colors focus:border-sage focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
                 />
+                {validationErrors.name && (
+                  <p id="name-error" role="alert" className="mt-2 text-sm text-sage">
+                    {validationErrors.name}
+                  </p>
+                )}
               </div>
 
               {/* Email */}
@@ -234,7 +267,7 @@ function Contact() {
                   placeholder="tu@email.com"
                   autoComplete="email"
                   required
-                  className="w-full bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted/60 outline-none transition-colors focus:border-sage focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
+                  className="w-full bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted outline-none transition-colors focus:border-sage focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
                 />
               </div>
 
@@ -273,13 +306,26 @@ function Contact() {
                 </label>
 
                 <textarea
+                  ref={messageInputRef}
                   id="message"
                   name="message"
                   rows={5}
                   placeholder="Contame brevemente sobre tu proyecto..."
                   required
-                  className="w-full resize-none bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted/60 outline-none transition-colors focus:border-sage focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
+                  aria-invalid={Boolean(validationErrors.message)}
+                  aria-describedby={validationErrors.message ? 'message-error' : undefined}
+                  onChange={(event) => {
+                    if (event.currentTarget.value.trim()) {
+                      setValidationErrors((errors) => ({ ...errors, message: '' }))
+                    }
+                  }}
+                  className="w-full resize-none bg-transparent border-b border-sage/30 py-3 text-text placeholder:text-muted outline-none transition-colors focus:border-sage focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
                 />
+                {validationErrors.message && (
+                  <p id="message-error" role="alert" className="mt-2 text-sm text-sage">
+                    {validationErrors.message}
+                  </p>
+                )}
               </div>
 
               {/* Botón */}
@@ -289,11 +335,11 @@ function Contact() {
                 </p>
                 <button
                   type="submit"
-                  className="group flex w-full items-center justify-between rounded-lg bg-cream px-6 py-4 font-semibold text-bg transition-all duration-300 hover:scale-[1.02] hover:bg-sage hover:shadow-[0_0_30px_rgba(138,154,126,0.18)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
+                  className="group flex w-full items-center justify-between rounded-lg bg-cream px-6 py-4 font-semibold text-bg transition-all duration-300 motion-safe:hover:scale-[1.02] hover:bg-sage hover:shadow-[0_0_30px_rgba(138,154,126,0.18)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage"
                 >
                   <span>Preparar mensaje en WhatsApp</span>
 
-                  <span aria-hidden="true" className="text-xl transition-transform duration-300 group-hover:translate-x-2">
+                  <span aria-hidden="true" className="text-xl transition-transform duration-300 motion-safe:group-hover:translate-x-2">
                     →
                   </span>
                 </button>

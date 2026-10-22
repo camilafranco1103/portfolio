@@ -15,7 +15,7 @@ function WhatsAppButton() {
         bg-sage text-bg
         shadow-lg
         transition-all duration-300
-        hover:scale-110
+        motion-safe:hover:scale-110
         hover:bg-cream
         hover:shadow-[0_0_25px_rgba(138,154,126,0.35)]
       "

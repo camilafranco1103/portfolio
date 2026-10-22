@@ -101,7 +101,7 @@ function ScreenshotGallery({ screenshots }: { screenshots: Screenshot[] }) {
                 alt={screenshot.alt}
                 loading="lazy"
                 decoding="async"
-                className="block h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.025]"
+                className="block h-full w-full object-contain transition-transform duration-300 motion-safe:group-hover:scale-[1.025]"
               />
             </a>
             <figcaption className="flex items-center justify-between gap-3 px-4 py-3.5">
@@ -145,7 +145,7 @@ function FoodStoreDetails() {
               href="https://github.com/camilafranco1103/frontend-store-app"
               target="_blank"
               rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-[#c45738] px-5 py-3 text-sm font-semibold text-white shadow-md shadow-[#c45738]/20 transition-all hover:-translate-y-0.5 hover:bg-[#d36545] hover:shadow-lg hover:shadow-[#c45738]/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e89170]"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#c45738] px-5 py-3 text-sm font-semibold text-white shadow-md shadow-[#c45738]/20 transition-all motion-safe:hover:-translate-y-0.5 hover:bg-[#d36545] hover:shadow-lg hover:shadow-[#c45738]/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e89170]"
             >
               Ver repositorio
               <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-4 w-4" stroke="currentColor" strokeWidth="1.5">

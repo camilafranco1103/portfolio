@@ -5,8 +5,8 @@ import logo from '../assets/logo.png'
 
 function About() {
   return (
-    <section id="sobre-mi" className="bg-bg px-6 py-20 md:px-12 md:py-24">
-      <div className="mx-auto max-w-7xl">
+    <section id="sobre-mi" className="about-section scroll-mt-20 bg-bg px-6 py-20 md:scroll-mt-[5.5rem] md:px-12 md:py-24">
+      <div className="mx-auto max-w-7xl" data-reveal-on-scroll>
         <div className="grid items-start gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-12">
           <AboutProfile />
 
@@ -20,11 +20,11 @@ function About() {
               </div>
             </div>
 
-            <h2 className="mb-5 text-3xl font-bold leading-[1.08] text-text md:text-4xl xl:text-5xl">
+            <h2 className="about-heading portfolio-section-heading mb-5 text-text">
               Tecnología con una
               <br />
               mirada{' '}
-              <span className="bg-gradient-to-r from-sage to-cream bg-clip-text text-transparent">
+              <span className="signature-font about-heading-accent">
                 integral.
               </span>
             </h2>
