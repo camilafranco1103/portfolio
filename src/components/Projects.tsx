@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type FocusEvent as ReactFocusEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react'
+import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import ProjectCard, { type PortfolioProject } from './ProjectCard'
 import foodStoreLight from '../assets/dashboard_foodStore_claro.png'
 import foodStoreDark from '../assets/dashboard_foodStore_oscuro.png'
@@ -142,7 +143,7 @@ function Projects() {
               aria-label="Proyecto anterior"
               onClick={() => moveTo(activeIndex - 1)}
             >
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></svg>
+              <ChevronLeft aria-hidden="true" size={20} strokeWidth={1.8} />
             </button>
             <button
               className="projects-control"
@@ -150,7 +151,7 @@ function Projects() {
               aria-label="Proyecto siguiente"
               onClick={() => moveTo(activeIndex + 1)}
             >
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></svg>
+              <ChevronRight aria-hidden="true" size={20} strokeWidth={1.8} />
             </button>
           </div>
         </div>
@@ -214,7 +215,7 @@ function Projects() {
               aria-label="Cerrar descripción del proyecto"
               onClick={closeProjectDetails}
             >
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" /></svg>
+              <X aria-hidden="true" size={20} strokeWidth={1.8} />
             </button>
             {selectedProject.screenshots?.[0] && (
               <img
@@ -232,9 +233,9 @@ function Projects() {
               </ul>
               <div className="project-details-links">
                 {selectedProject.link && (
-                  <a href={selectedProject.link} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                  <a href={selectedProject.link} target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.7} /></a>
                 )}
-                {selectedProject.detailLink && <a href={selectedProject.detailLink}>Ver detalles →</a>}
+                {selectedProject.detailLink && <a href={selectedProject.detailLink}>Ver detalles <ArrowRight aria-hidden="true" size={15} strokeWidth={1.7} /></a>}
               </div>
             </div>
           </div>

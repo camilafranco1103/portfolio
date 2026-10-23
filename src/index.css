@@ -361,12 +361,9 @@ select {
   color: var(--color-sage);
 }
 
-.portfolio-scroll-cue span {
-  width: 0.45rem;
-  height: 0.45rem;
-  border-right: 1px solid currentColor;
-  border-bottom: 1px solid currentColor;
-  transform: rotate(45deg) translate(-1px, -1px);
+.portfolio-scroll-cue svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .projects-section {

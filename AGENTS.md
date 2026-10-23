@@ -15,6 +15,12 @@
 - Tené en cuenta la accesibilidad: HTML semántico, navegación por teclado, foco visible, contraste suficiente y alternativas textuales para imágenes cuando corresponda.
 - Respetá las preferencias de movimiento reducido del sistema cuando agregues animaciones.
 
+## Iconografía
+
+- No uses emojis Unicode, emoticonos ni caracteres de texto como sustitutos de iconos en la interfaz.
+- Usá exclusivamente la librería de iconos vectoriales aprobada para el proyecto. No agregues ni cambies librerías de iconos sin aprobación.
+- Mantené coherencia en trazo, tamaño y alineación. Marcá los iconos decorativos con `aria-hidden="true"` y asegurá un nombre accesible para los controles que dependan de un icono.
+
 ## Dependencias y seguridad de cambios
 
 - Evitá duplicar componentes, estilos o lógica. Reutilizá las soluciones existentes cuando sea razonable.

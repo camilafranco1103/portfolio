@@ -1,3 +1,4 @@
+import { ArrowLeft, ArrowUpRight, Check } from 'lucide-react'
 import foodStoreLight from '../assets/dashboard_foodStore_claro.png'
 import foodStoreDark from '../assets/dashboard_foodStore_oscuro.png'
 import foodStoreAdminDashboard from '../assets/foodstore-admin-dashboard.png.png'
@@ -61,7 +62,7 @@ function FeatureList({ items }: { items: string[] }) {
     <ul className="grid gap-4 sm:grid-cols-2">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-3 rounded-xl border border-sage/15 bg-bg/40 px-4 py-3 text-sm leading-relaxed text-text/85">
-          <span className="mt-0.5 text-sage" aria-hidden="true">✓</span>
+          <Check className="mt-0.5 shrink-0 text-sage" aria-hidden="true" size={16} strokeWidth={1.8} />
           <span>{item}</span>
         </li>
       ))}
@@ -112,7 +113,7 @@ function ScreenshotGallery({ screenshots }: { screenshots: Screenshot[] }) {
                 rel="noopener noreferrer"
                 className="shrink-0 rounded-full border border-[#c45738]/40 bg-[#c45738]/10 px-3 py-1.5 text-xs font-medium text-[#e89170] transition-colors hover:border-[#c45738] hover:bg-[#c45738]/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#e89170]"
               >
-                Abrir imagen <span aria-hidden="true">↗</span>
+                Abrir imagen <ArrowUpRight aria-hidden="true" size={14} strokeWidth={1.7} />
               </a>
             </figcaption>
           </figure>
@@ -127,7 +128,7 @@ function FoodStoreDetails() {
     <main className="min-h-screen bg-bg px-6 py-10 text-text md:px-12 md:py-16">
       <div className="mx-auto max-w-6xl">
         <a href="/#proyectos" className="mb-8 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-text">
-          <span aria-hidden="true">←</span> Volver a proyectos
+          <ArrowLeft aria-hidden="true" size={16} strokeWidth={1.7} /> Volver a proyectos
         </a>
 
         <header className="mb-10 rounded-3xl border border-sage/20 bg-gradient-to-br from-sage/[0.12] via-sage/[0.04] to-transparent p-6 md:mb-12 md:p-10">
@@ -148,9 +149,7 @@ function FoodStoreDetails() {
             className="inline-flex items-center gap-2 rounded-xl bg-[#c45738] px-5 py-3 text-sm font-semibold text-white shadow-md shadow-[#c45738]/20 transition-all motion-safe:hover:-translate-y-0.5 hover:bg-[#d36545] hover:shadow-lg hover:shadow-[#c45738]/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e89170]"
             >
               Ver repositorio
-              <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" className="h-4 w-4" stroke="currentColor" strokeWidth="1.5">
-                <path d="M5.5 3.5h7v7M12.25 3.75 4 12" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <ArrowUpRight aria-hidden="true" size={16} strokeWidth={1.5} />
             </a>
             <span className="text-xs text-muted">React · TypeScript · FastAPI · PostgreSQL</span>
           </div>
@@ -224,7 +223,7 @@ function FoodStoreDetails() {
 
         <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-sage/20 pt-6">
           <p className="text-sm text-muted">FoodStore · E-commerce gastronómico full-stack</p>
-          <a href="/#proyectos" className="text-sm text-sage transition-colors hover:text-cream">Volver a proyectos ↑</a>
+          <a href="/#proyectos" className="inline-flex items-center gap-1 text-sm text-sage transition-colors hover:text-cream">Volver a proyectos <ArrowUpRight aria-hidden="true" size={14} strokeWidth={1.7} /></a>
         </footer>
       </div>
     </main>

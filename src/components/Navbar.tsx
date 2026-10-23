@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { CircleDot, Menu, X } from 'lucide-react'
 import logo from '../assets/logo.png'
 
 const navigationLinks = [
@@ -73,9 +74,9 @@ function Navbar() {
         aria-controls="mobile-site-navigation"
         onClick={() => setIsMenuOpen((open) => !open)}
       >
-        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-          {isMenuOpen ? <path d="m6 6 12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-        </svg>
+        {isMenuOpen
+          ? <X aria-hidden="true" size={24} strokeWidth={1.8} />
+          : <Menu aria-hidden="true" size={24} strokeWidth={1.8} />}
       </button>
 
       <div ref={desktopNavigationRef} className="portfolio-desktop-navigation hidden items-center gap-6 text-sm text-muted lg:flex xl:gap-8">
@@ -94,7 +95,7 @@ function Navbar() {
         href="#contacto"
         className="portfolio-availability hidden min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-sm text-text transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage lg:flex"
       >
-        <span aria-hidden="true" className="h-2 w-2 rounded-full bg-sage" />
+        <CircleDot aria-hidden="true" size={12} strokeWidth={1.8} className="text-sage" />
         Disponible para proyectos
       </a>
 

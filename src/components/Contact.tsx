@@ -1,4 +1,5 @@
 import { useRef, useState, type FormEvent } from 'react'
+import { ArrowRight, ArrowUpRight, CircleDot } from 'lucide-react'
 import { createWhatsAppMessageUrl } from '../lib/whatsapp'
 
 function Contact() {
@@ -80,7 +81,7 @@ function Contact() {
             {/* Disponibilidad */}
             <div>
               <div className="flex items-center gap-3 mb-8">
-                <span className="w-2.5 h-2.5 rounded-full bg-sage motion-safe:animate-pulse" />
+                <CircleDot aria-hidden="true" size={12} strokeWidth={1.8} className="text-sage motion-safe:animate-pulse" />
 
                 <span className="text-sm text-text">
                   Disponible para proyectos
@@ -109,9 +110,6 @@ function Contact() {
                     </h3>
                   </div>
 
-                  <span className="text-muted group-hover:text-sage motion-safe:group-hover:translate-x-1 transition-all">
-                    ↗
-                  </span>
                 </div>
 
                 <p className="text-sm text-muted mt-2 ml-9">
@@ -132,9 +130,6 @@ function Contact() {
                     </h3>
                   </div>
 
-                  <span className="text-muted group-hover:text-sage motion-safe:group-hover:translate-x-1 transition-all">
-                    ↗
-                  </span>
                 </div>
 
                 <p className="text-sm text-muted mt-2 ml-9">
@@ -155,9 +150,6 @@ function Contact() {
                     </h3>
                   </div>
 
-                  <span className="text-muted group-hover:text-sage motion-safe:group-hover:translate-x-1 transition-all">
-                    ↗
-                  </span>
                 </div>
 
                 <p className="text-sm text-muted mt-2 ml-9">
@@ -192,7 +184,7 @@ function Contact() {
                     rel="noopener noreferrer"
                     className="text-sm text-muted hover:text-text transition-colors"
                   >
-                    LinkedIn ↗
+                    LinkedIn <ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.7} />
                   </a>
 
                   <a
@@ -201,7 +193,7 @@ function Contact() {
                     rel="noopener noreferrer"
                     className="text-sm text-muted hover:text-text transition-colors"
                   >
-                    GitHub ↗
+                    GitHub <ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.7} />
                   </a>
                 </div>
               </div>
@@ -339,9 +331,7 @@ function Contact() {
                 >
                   <span>Preparar mensaje en WhatsApp</span>
 
-                  <span aria-hidden="true" className="text-xl transition-transform duration-300 motion-safe:group-hover:translate-x-2">
-                    →
-                  </span>
+                  <ArrowRight aria-hidden="true" size={20} strokeWidth={1.7} className="transition-transform duration-300 motion-safe:group-hover:translate-x-2" />
                 </button>
               </div>
             </div>

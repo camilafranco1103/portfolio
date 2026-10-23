@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 
 type ProjectScreenshot = {
   src: string
@@ -105,7 +106,7 @@ function ProjectCard({ category, title, description, tags, link, detailLink, scr
             rel="noopener noreferrer"
             className="project-card-link"
           >
-            GitHub ↗
+            GitHub <ArrowUpRight aria-hidden="true" size={15} strokeWidth={1.7} />
           </a>
         )}
         {detailLink && (
@@ -113,7 +114,7 @@ function ProjectCard({ category, title, description, tags, link, detailLink, scr
             href={detailLink}
             className="project-card-link project-card-detail-link"
           >
-            Ver detalles <span aria-hidden="true">→</span>
+            Ver detalles <ArrowRight aria-hidden="true" size={15} strokeWidth={1.7} />
           </a>
         )}
       </div>

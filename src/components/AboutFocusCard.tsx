@@ -1,8 +1,10 @@
+import type { ReactNode } from 'react'
+
 type AboutFocusCardProps = {
   number: string
   title: string
   description: string
-  icon: string
+  icon: ReactNode
 }
 
 function AboutFocusCard({

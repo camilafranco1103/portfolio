@@ -1,3 +1,4 @@
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import heroDevices from '../assets/hero-devices.png'
 
 function Hero() {
@@ -20,7 +21,7 @@ function Hero() {
 
           <div className="portfolio-hero-actions">
             <a href="#proyectos" className="portfolio-primary-action">
-              Ver proyectos <span aria-hidden="true">↗</span>
+              Ver proyectos <ArrowUpRight aria-hidden="true" size={16} strokeWidth={1.7} />
             </a>
             <a href="#contacto" className="portfolio-secondary-action">
               Hablemos
@@ -46,7 +47,7 @@ function Hero() {
       </div>
 
       <a className="portfolio-scroll-cue" href="#proyectos" aria-label="Ver proyectos">
-        <span aria-hidden="true" />
+        <ArrowDown aria-hidden="true" size={16} strokeWidth={1.7} />
       </a>
     </section>
   )

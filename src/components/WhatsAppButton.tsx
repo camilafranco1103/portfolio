@@ -21,6 +21,8 @@ function WhatsAppButton() {
       "
     >
       <svg
+        aria-hidden="true"
+        focusable="false"
         viewBox="0 0 24 24"
         className="w-6 h-6"
         fill="currentColor"

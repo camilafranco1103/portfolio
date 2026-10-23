@@ -1,3 +1,4 @@
+import { Code2, Sparkles, Workflow } from 'lucide-react'
 import AboutProfile from './AboutProfile'
 import AboutFocusCard from './AboutFocusCard'
 import AboutStrengths from './AboutStrengths'
@@ -55,19 +56,19 @@ function About() {
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               <AboutFocusCard
                 number="01"
-                icon="</>"
+                icon={<Code2 aria-hidden="true" size={18} strokeWidth={1.7} />}
                 title="Desarrollo"
                 description="Aplicaciones web, programación orientada a objetos, bases de datos y soluciones a medida."
               />
               <AboutFocusCard
                 number="02"
-                icon="⚙"
+                icon={<Workflow aria-hidden="true" size={18} strokeWidth={1.7} />}
                 title="Automatización"
                 description="Integración de APIs, workflows y sistemas para optimizar procesos y ahorrar tiempo."
               />
               <AboutFocusCard
                 number="03"
-                icon="✧"
+                icon={<Sparkles aria-hidden="true" size={18} strokeWidth={1.7} />}
                 title="IA & Comunicación"
                 description="Inteligencia artificial, chatbots y procesos digitales con una mirada creativa."
               />
